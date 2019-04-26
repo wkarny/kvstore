@@ -2,19 +2,11 @@ package io.grpc.examples;
 
 import com.google.protobuf.ByteString;
 import io.grpc.Status;
-import io.grpc.examples.proto.CreateRequest;
-import io.grpc.examples.proto.CreateResponse;
-import io.grpc.examples.proto.DeleteRequest;
-import io.grpc.examples.proto.DeleteResponse;
+import io.grpc.examples.proto.HelloRequest;
+import io.grpc.examples.proto.HelloResponse;
+import io.grpc.examples.proto.KeyValueServiceGrpc;
 import io.grpc.examples.proto.KeyValueServiceGrpc.KeyValueServiceImplBase;
-import io.grpc.examples.proto.RetrieveRequest;
-import io.grpc.examples.proto.RetrieveResponse;
-import io.grpc.examples.proto.UpdateRequest;
-import io.grpc.examples.proto.UpdateResponse;
 import io.grpc.stub.StreamObserver;
-import java.nio.ByteBuffer;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
@@ -25,72 +17,15 @@ import java.util.concurrent.TimeUnit;
  */
 final class KvService extends KeyValueServiceImplBase {
 
-  private static final long READ_DELAY_MILLIS = 10;
-  private static final long WRITE_DELAY_MILLIS = 50;
-
-  private final Map<ByteBuffer, ByteBuffer> store = new HashMap<>();
 
   @Override
-  public synchronized void create(
-      CreateRequest request, StreamObserver<CreateResponse> responseObserver) {
-    ByteBuffer key = request.getKey().asReadOnlyByteBuffer();
-    ByteBuffer value = request.getValue().asReadOnlyByteBuffer();
-    simulateWork(WRITE_DELAY_MILLIS);
-    if (store.putIfAbsent(key, value) == null) {
-      responseObserver.onNext(CreateResponse.getDefaultInstance());
-      responseObserver.onCompleted();
-      return;
-    }
-    responseObserver.onError(Status.ALREADY_EXISTS.asRuntimeException());
-  }
-
-  @Override
-  public synchronized void retrieve(RetrieveRequest request,
-      StreamObserver<RetrieveResponse> responseObserver) {
-    ByteBuffer key = request.getKey().asReadOnlyByteBuffer();
-    simulateWork(READ_DELAY_MILLIS);
-    ByteBuffer value = store.get(key);
-    if (value != null) {
-      responseObserver.onNext(
-          RetrieveResponse.newBuilder().setValue(ByteString.copyFrom(value.slice())).build());
-      responseObserver.onCompleted();
-      return;
-    }
-    responseObserver.onError(Status.NOT_FOUND.asRuntimeException());
-  }
-
-  @Override
-  public synchronized void update(
-      UpdateRequest request, StreamObserver<UpdateResponse> responseObserver) {
-    ByteBuffer key = request.getKey().asReadOnlyByteBuffer();
-    ByteBuffer newValue = request.getValue().asReadOnlyByteBuffer();
-    simulateWork(WRITE_DELAY_MILLIS);
-    ByteBuffer oldValue = store.get(key);
-    if (oldValue == null) {
-      responseObserver.onError(Status.NOT_FOUND.asRuntimeException());
-      return;
-    }
-    store.replace(key, oldValue, newValue);
-    responseObserver.onNext(UpdateResponse.getDefaultInstance());
+  public synchronized void sayHello(
+      HelloRequest request, StreamObserver<HelloResponse> responseObserver) {
+    String name = request.getName();
+    HelloResponse hr = HelloResponse.newBuilder().setName("Hello " + name).build();
+    responseObserver.onNext(hr);
     responseObserver.onCompleted();
+    return;
   }
 
-  @Override
-  public synchronized void delete(
-      DeleteRequest request, StreamObserver<DeleteResponse> responseObserver) {
-    ByteBuffer key = request.getKey().asReadOnlyByteBuffer();
-    simulateWork(WRITE_DELAY_MILLIS);
-    store.remove(key);
-    responseObserver.onNext(DeleteResponse.getDefaultInstance());
-    responseObserver.onCompleted();
-  }
-
-  private static void simulateWork(long millis) {
-    try {
-      TimeUnit.MILLISECONDS.sleep(millis);
-    } catch (InterruptedException e) {
-      Thread.currentThread().interrupt();
-      throw new RuntimeException(e);
-    }
-  }
 }

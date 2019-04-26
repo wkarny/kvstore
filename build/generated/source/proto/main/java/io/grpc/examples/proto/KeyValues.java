@@ -15,45 +15,15 @@ public final class KeyValues {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_io_grpc_CreateRequest_descriptor;
+    internal_static_io_grpc_HelloRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_io_grpc_CreateRequest_fieldAccessorTable;
+      internal_static_io_grpc_HelloRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_io_grpc_CreateResponse_descriptor;
+    internal_static_io_grpc_HelloResponse_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_io_grpc_CreateResponse_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_io_grpc_RetrieveRequest_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_io_grpc_RetrieveRequest_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_io_grpc_RetrieveResponse_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_io_grpc_RetrieveResponse_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_io_grpc_UpdateRequest_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_io_grpc_UpdateRequest_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_io_grpc_UpdateResponse_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_io_grpc_UpdateResponse_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_io_grpc_DeleteRequest_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_io_grpc_DeleteRequest_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_io_grpc_DeleteResponse_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_io_grpc_DeleteResponse_fieldAccessorTable;
+      internal_static_io_grpc_HelloResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -63,21 +33,12 @@ public final class KeyValues {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rkvstore.proto\022\007io.grpc\"+\n\rCreateReques" +
-      "t\022\013\n\003key\030\001 \001(\014\022\r\n\005value\030\002 \001(\014\"\020\n\016CreateR" +
-      "esponse\"\036\n\017RetrieveRequest\022\013\n\003key\030\001 \001(\014\"" +
-      "!\n\020RetrieveResponse\022\r\n\005value\030\001 \001(\014\"+\n\rUp" +
-      "dateRequest\022\013\n\003key\030\001 \001(\014\022\r\n\005value\030\002 \001(\014\"" +
-      "\020\n\016UpdateResponse\"\034\n\rDeleteRequest\022\013\n\003ke" +
-      "y\030\001 \001(\014\"\020\n\016DeleteResponse2\203\002\n\017KeyValueSe" +
-      "rvice\0229\n\006Create\022\026.io.grpc.CreateRequest\032" +
-      "\027.io.grpc.CreateResponse\022?\n\010Retrieve\022\030.i" +
-      "o.grpc.RetrieveRequest\032\031.io.grpc.Retriev" +
-      "eResponse\0229\n\006Update\022\026.io.grpc.UpdateRequ" +
-      "est\032\027.io.grpc.UpdateResponse\0229\n\006Delete\022\026" +
-      ".io.grpc.DeleteRequest\032\027.io.grpc.DeleteR" +
-      "esponseB%\n\026io.grpc.examples.protoB\tKeyVa" +
-      "luesP\001b\006proto3"
+      "\n\rkvstore.proto\022\007io.grpc\"\034\n\014HelloRequest" +
+      "\022\014\n\004name\030\001 \001(\t\"\035\n\rHelloResponse\022\014\n\004name\030" +
+      "\001 \001(\t2L\n\017KeyValueService\0229\n\010SayHello\022\025.i" +
+      "o.grpc.HelloRequest\032\026.io.grpc.HelloRespo" +
+      "nseB%\n\026io.grpc.examples.protoB\tKeyValues" +
+      "P\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -91,54 +52,18 @@ public final class KeyValues {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_io_grpc_CreateRequest_descriptor =
+    internal_static_io_grpc_HelloRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_io_grpc_CreateRequest_fieldAccessorTable = new
+    internal_static_io_grpc_HelloRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_io_grpc_CreateRequest_descriptor,
-        new java.lang.String[] { "Key", "Value", });
-    internal_static_io_grpc_CreateResponse_descriptor =
+        internal_static_io_grpc_HelloRequest_descriptor,
+        new java.lang.String[] { "Name", });
+    internal_static_io_grpc_HelloResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_io_grpc_CreateResponse_fieldAccessorTable = new
+    internal_static_io_grpc_HelloResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_io_grpc_CreateResponse_descriptor,
-        new java.lang.String[] { });
-    internal_static_io_grpc_RetrieveRequest_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_io_grpc_RetrieveRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_io_grpc_RetrieveRequest_descriptor,
-        new java.lang.String[] { "Key", });
-    internal_static_io_grpc_RetrieveResponse_descriptor =
-      getDescriptor().getMessageTypes().get(3);
-    internal_static_io_grpc_RetrieveResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_io_grpc_RetrieveResponse_descriptor,
-        new java.lang.String[] { "Value", });
-    internal_static_io_grpc_UpdateRequest_descriptor =
-      getDescriptor().getMessageTypes().get(4);
-    internal_static_io_grpc_UpdateRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_io_grpc_UpdateRequest_descriptor,
-        new java.lang.String[] { "Key", "Value", });
-    internal_static_io_grpc_UpdateResponse_descriptor =
-      getDescriptor().getMessageTypes().get(5);
-    internal_static_io_grpc_UpdateResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_io_grpc_UpdateResponse_descriptor,
-        new java.lang.String[] { });
-    internal_static_io_grpc_DeleteRequest_descriptor =
-      getDescriptor().getMessageTypes().get(6);
-    internal_static_io_grpc_DeleteRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_io_grpc_DeleteRequest_descriptor,
-        new java.lang.String[] { "Key", });
-    internal_static_io_grpc_DeleteResponse_descriptor =
-      getDescriptor().getMessageTypes().get(7);
-    internal_static_io_grpc_DeleteResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_io_grpc_DeleteResponse_descriptor,
-        new java.lang.String[] { });
+        internal_static_io_grpc_HelloResponse_descriptor,
+        new java.lang.String[] { "Name", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
