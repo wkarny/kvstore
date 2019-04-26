@@ -49,7 +49,7 @@ final class KvClient {
       int command = 0;
       if (command == 0) {
         doHello(stub);
-	rpcCount++;
+	//rpcCount++;
         continue;
       }
       
@@ -62,6 +62,8 @@ final class KvClient {
   private void doHello(KeyValueServiceBlockingStub stub) {
     try {
       HelloResponse res = stub.sayHello(HelloRequest.newBuilder().setName("Wyes").build());
+      //logger.log(Level.INFO, ("RPC success " + res.getName()));
+      rpcCount++;
     } catch (StatusRuntimeException e) {
         logger.log(Level.INFO, "RPC failed", e);
     }
