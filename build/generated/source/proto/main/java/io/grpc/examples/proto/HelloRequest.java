@@ -16,7 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private HelloRequest() {
-    name_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    num_ = java.util.Collections.emptyList();
   }
 
   @java.lang.Override
@@ -50,13 +50,25 @@ private static final long serialVersionUID = 0L;
             }
             break;
           }
-          case 10: {
-            java.lang.String s = input.readStringRequireUtf8();
+          case 8: {
             if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-              name_ = new com.google.protobuf.LazyStringArrayList();
+              num_ = new java.util.ArrayList<java.lang.Integer>();
               mutable_bitField0_ |= 0x00000001;
             }
-            name_.add(s);
+            num_.add(input.readInt32());
+            break;
+          }
+          case 10: {
+            int length = input.readRawVarint32();
+            int limit = input.pushLimit(length);
+            if (!((mutable_bitField0_ & 0x00000001) == 0x00000001) && input.getBytesUntilLimit() > 0) {
+              num_ = new java.util.ArrayList<java.lang.Integer>();
+              mutable_bitField0_ |= 0x00000001;
+            }
+            while (input.getBytesUntilLimit() > 0) {
+              num_.add(input.readInt32());
+            }
+            input.popLimit(limit);
             break;
           }
         }
@@ -68,7 +80,7 @@ private static final long serialVersionUID = 0L;
           e).setUnfinishedMessage(this);
     } finally {
       if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-        name_ = name_.getUnmodifiableView();
+        num_ = java.util.Collections.unmodifiableList(num_);
       }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
@@ -86,34 +98,28 @@ private static final long serialVersionUID = 0L;
             io.grpc.examples.proto.HelloRequest.class, io.grpc.examples.proto.HelloRequest.Builder.class);
   }
 
-  public static final int NAME_FIELD_NUMBER = 1;
-  private com.google.protobuf.LazyStringList name_;
+  public static final int NUM_FIELD_NUMBER = 1;
+  private java.util.List<java.lang.Integer> num_;
   /**
-   * <code>repeated string name = 1;</code>
+   * <code>repeated int32 num = 1;</code>
    */
-  public com.google.protobuf.ProtocolStringList
-      getNameList() {
-    return name_;
+  public java.util.List<java.lang.Integer>
+      getNumList() {
+    return num_;
   }
   /**
-   * <code>repeated string name = 1;</code>
+   * <code>repeated int32 num = 1;</code>
    */
-  public int getNameCount() {
-    return name_.size();
+  public int getNumCount() {
+    return num_.size();
   }
   /**
-   * <code>repeated string name = 1;</code>
+   * <code>repeated int32 num = 1;</code>
    */
-  public java.lang.String getName(int index) {
-    return name_.get(index);
+  public int getNum(int index) {
+    return num_.get(index);
   }
-  /**
-   * <code>repeated string name = 1;</code>
-   */
-  public com.google.protobuf.ByteString
-      getNameBytes(int index) {
-    return name_.getByteString(index);
-  }
+  private int numMemoizedSerializedSize = -1;
 
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
@@ -127,8 +133,13 @@ private static final long serialVersionUID = 0L;
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    for (int i = 0; i < name_.size(); i++) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_.getRaw(i));
+    getSerializedSize();
+    if (getNumList().size() > 0) {
+      output.writeUInt32NoTag(10);
+      output.writeUInt32NoTag(numMemoizedSerializedSize);
+    }
+    for (int i = 0; i < num_.size(); i++) {
+      output.writeInt32NoTag(num_.get(i));
     }
     unknownFields.writeTo(output);
   }
@@ -140,11 +151,17 @@ private static final long serialVersionUID = 0L;
     size = 0;
     {
       int dataSize = 0;
-      for (int i = 0; i < name_.size(); i++) {
-        dataSize += computeStringSizeNoTag(name_.getRaw(i));
+      for (int i = 0; i < num_.size(); i++) {
+        dataSize += com.google.protobuf.CodedOutputStream
+          .computeInt32SizeNoTag(num_.get(i));
       }
       size += dataSize;
-      size += 1 * getNameList().size();
+      if (!getNumList().isEmpty()) {
+        size += 1;
+        size += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(dataSize);
+      }
+      numMemoizedSerializedSize = dataSize;
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -162,8 +179,8 @@ private static final long serialVersionUID = 0L;
     io.grpc.examples.proto.HelloRequest other = (io.grpc.examples.proto.HelloRequest) obj;
 
     boolean result = true;
-    result = result && getNameList()
-        .equals(other.getNameList());
+    result = result && getNumList()
+        .equals(other.getNumList());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -175,9 +192,9 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    if (getNameCount() > 0) {
-      hash = (37 * hash) + NAME_FIELD_NUMBER;
-      hash = (53 * hash) + getNameList().hashCode();
+    if (getNumCount() > 0) {
+      hash = (37 * hash) + NUM_FIELD_NUMBER;
+      hash = (53 * hash) + getNumList().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -308,7 +325,7 @@ private static final long serialVersionUID = 0L;
     }
     public Builder clear() {
       super.clear();
-      name_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      num_ = java.util.Collections.emptyList();
       bitField0_ = (bitField0_ & ~0x00000001);
       return this;
     }
@@ -334,10 +351,10 @@ private static final long serialVersionUID = 0L;
       io.grpc.examples.proto.HelloRequest result = new io.grpc.examples.proto.HelloRequest(this);
       int from_bitField0_ = bitField0_;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        name_ = name_.getUnmodifiableView();
+        num_ = java.util.Collections.unmodifiableList(num_);
         bitField0_ = (bitField0_ & ~0x00000001);
       }
-      result.name_ = name_;
+      result.num_ = num_;
       onBuilt();
       return result;
     }
@@ -379,13 +396,13 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(io.grpc.examples.proto.HelloRequest other) {
       if (other == io.grpc.examples.proto.HelloRequest.getDefaultInstance()) return this;
-      if (!other.name_.isEmpty()) {
-        if (name_.isEmpty()) {
-          name_ = other.name_;
+      if (!other.num_.isEmpty()) {
+        if (num_.isEmpty()) {
+          num_ = other.num_;
           bitField0_ = (bitField0_ & ~0x00000001);
         } else {
-          ensureNameIsMutable();
-          name_.addAll(other.name_);
+          ensureNumIsMutable();
+          num_.addAll(other.num_);
         }
         onChanged();
       }
@@ -417,96 +434,68 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
-    private com.google.protobuf.LazyStringList name_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-    private void ensureNameIsMutable() {
+    private java.util.List<java.lang.Integer> num_ = java.util.Collections.emptyList();
+    private void ensureNumIsMutable() {
       if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-        name_ = new com.google.protobuf.LazyStringArrayList(name_);
+        num_ = new java.util.ArrayList<java.lang.Integer>(num_);
         bitField0_ |= 0x00000001;
        }
     }
     /**
-     * <code>repeated string name = 1;</code>
+     * <code>repeated int32 num = 1;</code>
      */
-    public com.google.protobuf.ProtocolStringList
-        getNameList() {
-      return name_.getUnmodifiableView();
+    public java.util.List<java.lang.Integer>
+        getNumList() {
+      return java.util.Collections.unmodifiableList(num_);
     }
     /**
-     * <code>repeated string name = 1;</code>
+     * <code>repeated int32 num = 1;</code>
      */
-    public int getNameCount() {
-      return name_.size();
+    public int getNumCount() {
+      return num_.size();
     }
     /**
-     * <code>repeated string name = 1;</code>
+     * <code>repeated int32 num = 1;</code>
      */
-    public java.lang.String getName(int index) {
-      return name_.get(index);
+    public int getNum(int index) {
+      return num_.get(index);
     }
     /**
-     * <code>repeated string name = 1;</code>
+     * <code>repeated int32 num = 1;</code>
      */
-    public com.google.protobuf.ByteString
-        getNameBytes(int index) {
-      return name_.getByteString(index);
-    }
-    /**
-     * <code>repeated string name = 1;</code>
-     */
-    public Builder setName(
-        int index, java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureNameIsMutable();
-      name_.set(index, value);
+    public Builder setNum(
+        int index, int value) {
+      ensureNumIsMutable();
+      num_.set(index, value);
       onChanged();
       return this;
     }
     /**
-     * <code>repeated string name = 1;</code>
+     * <code>repeated int32 num = 1;</code>
      */
-    public Builder addName(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureNameIsMutable();
-      name_.add(value);
+    public Builder addNum(int value) {
+      ensureNumIsMutable();
+      num_.add(value);
       onChanged();
       return this;
     }
     /**
-     * <code>repeated string name = 1;</code>
+     * <code>repeated int32 num = 1;</code>
      */
-    public Builder addAllName(
-        java.lang.Iterable<java.lang.String> values) {
-      ensureNameIsMutable();
+    public Builder addAllNum(
+        java.lang.Iterable<? extends java.lang.Integer> values) {
+      ensureNumIsMutable();
       com.google.protobuf.AbstractMessageLite.Builder.addAll(
-          values, name_);
+          values, num_);
       onChanged();
       return this;
     }
     /**
-     * <code>repeated string name = 1;</code>
+     * <code>repeated int32 num = 1;</code>
      */
-    public Builder clearName() {
-      name_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    public Builder clearNum() {
+      num_ = java.util.Collections.emptyList();
       bitField0_ = (bitField0_ & ~0x00000001);
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>repeated string name = 1;</code>
-     */
-    public Builder addNameBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      ensureNameIsMutable();
-      name_.add(value);
       onChanged();
       return this;
     }

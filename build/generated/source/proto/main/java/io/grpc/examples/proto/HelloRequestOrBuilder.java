@@ -8,21 +8,15 @@ public interface HelloRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>repeated string name = 1;</code>
+   * <code>repeated int32 num = 1;</code>
    */
-  java.util.List<java.lang.String>
-      getNameList();
+  java.util.List<java.lang.Integer> getNumList();
   /**
-   * <code>repeated string name = 1;</code>
+   * <code>repeated int32 num = 1;</code>
    */
-  int getNameCount();
+  int getNumCount();
   /**
-   * <code>repeated string name = 1;</code>
+   * <code>repeated int32 num = 1;</code>
    */
-  java.lang.String getName(int index);
-  /**
-   * <code>repeated string name = 1;</code>
-   */
-  com.google.protobuf.ByteString
-      getNameBytes(int index);
+  int getNum(int index);
 }

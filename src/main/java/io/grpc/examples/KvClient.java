@@ -63,7 +63,7 @@ final class KvClient {
     try {
       HelloRequest.Builder hr = HelloRequest.newBuilder();
       for(int i = 0; i < payload; i++)
-        hr.addName("Wyes");
+        hr.addNum(123);
       HelloResponse res = stub.sayHello(hr.build());
       //logger.log(Level.INFO, ("RPC success " + res.getName()));
       rpcCount++;
