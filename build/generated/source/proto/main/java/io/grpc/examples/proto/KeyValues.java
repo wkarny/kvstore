@@ -34,7 +34,7 @@ public final class KeyValues {
   static {
     java.lang.String[] descriptorData = {
       "\n\rkvstore.proto\022\007io.grpc\"\034\n\014HelloRequest" +
-      "\022\014\n\004name\030\001 \001(\t\"\035\n\rHelloResponse\022\014\n\004name\030" +
+      "\022\014\n\004name\030\001 \003(\t\"\035\n\rHelloResponse\022\014\n\004name\030" +
       "\001 \001(\t2L\n\017KeyValueService\0229\n\010SayHello\022\025.i" +
       "o.grpc.HelloRequest\032\026.io.grpc.HelloRespo" +
       "nseB%\n\026io.grpc.examples.protoB\tKeyValues" +

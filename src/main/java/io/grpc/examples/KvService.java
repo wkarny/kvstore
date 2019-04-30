@@ -21,8 +21,8 @@ final class KvService extends KeyValueServiceImplBase {
   @Override
   public synchronized void sayHello(
       HelloRequest request, StreamObserver<HelloResponse> responseObserver) {
-    String name = request.getName();
-    HelloResponse hr = HelloResponse.newBuilder().setName("Hello " + name).build();
+    //String name = request.getName();
+    HelloResponse hr = HelloResponse.newBuilder().setName("Hello ").build();
     responseObserver.onNext(hr);
     responseObserver.onCompleted();
     return;

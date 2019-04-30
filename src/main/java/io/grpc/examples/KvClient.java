@@ -40,7 +40,7 @@ final class KvClient {
    * Does the client work until {@code done.get()} returns true.  Callers should set done to true,
    * and wait for this method to return.
    */
-  void doClientWork(AtomicBoolean done) {
+  void doClientWork(AtomicBoolean done, int payload) {
     Random random = new Random();
     KeyValueServiceBlockingStub stub = KeyValueServiceGrpc.newBlockingStub(channel);
 
@@ -48,7 +48,7 @@ final class KvClient {
       // Pick a random CRUD action to take.
       int command = 0;
       if (command == 0) {
-        doHello(stub);
+        doHello(stub, payload);
 	//rpcCount++;
         continue;
       }
@@ -59,9 +59,12 @@ final class KvClient {
   /**
    * Creates a random key and value.
    */
-  private void doHello(KeyValueServiceBlockingStub stub) {
+  private void doHello(KeyValueServiceBlockingStub stub,int payload) {
     try {
-      HelloResponse res = stub.sayHello(HelloRequest.newBuilder().setName("Wyes").build());
+      HelloRequest.Builder hr = HelloRequest.newBuilder();
+      for(int i = 0; i < payload; i++)
+        hr.addName("Wyes");
+      HelloResponse res = stub.sayHello(hr.build());
       //logger.log(Level.INFO, ("RPC success " + res.getName()));
       rpcCount++;
     } catch (StatusRuntimeException e) {

@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,23 +21,29 @@ import java.util.logging.Logger;
  */
 public final class KvRunner {
   private static final Logger logger = Logger.getLogger(KvRunner.class.getName());
+  
 
   private static final long DURATION_SECONDS = 60;
 
   private Server server;
   private ManagedChannel channel;
-
+  KvRunner() throws Exception{
+	  FileHandler handler = new FileHandler("kv_default.log", true);
+	  logger.addHandler(handler);
+  }
   public static void main(String []args) throws Exception {
-    KvRunner store = new KvRunner();
-    store.startServer();
-    try {
-      store.runClient();
-    } finally {
-      store.stopServer();
-    }
+	for(int i = 1; i < 1000000; i*=10){
+	    KvRunner store = new KvRunner();
+	    store.startServer();
+	    try {
+	    	store.runClient(i);
+	    } finally {
+	      store.stopServer();
+	    }
+	}
   }
 
-  private void runClient() throws InterruptedException {
+  private void runClient(int payload) throws InterruptedException {
     if (channel != null) {
       throw new IllegalStateException("Already started");
     }
@@ -49,8 +56,9 @@ public final class KvRunner {
       KvClient client = new KvClient(channel);
       logger.info("Starting");
       scheduler.schedule(() -> done.set(true), DURATION_SECONDS, TimeUnit.SECONDS);
-      client.doClientWork(done);
+      client.doClientWork(done, payload);
       double qps = (double) client.getRpcCount() / DURATION_SECONDS;
+      logger.log(Level.INFO,"Hello");
       logger.log(Level.INFO, "Did {0} RPCs/s", new Object[]{qps});
     } finally {
       scheduler.shutdownNow();
