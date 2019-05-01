@@ -14,6 +14,9 @@ repositories {
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.3.11'
     compile 'io.grpc:grpc-all:1.10.0'
+    compile 'org.capnproto:runtime:0.1.0'
+    //runtime files('/home/wyes/proj/capnproto-java/examples/target')
+    //runtime files('/home/wyes/proj/capnproto-java/runtime/target')
 }
 
 

@@ -33,12 +33,12 @@ public final class KeyValues {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rkvstore.proto\022\007io.grpc\"\033\n\014HelloRequest" +
-      "\022\013\n\003num\030\001 \003(\005\"\035\n\rHelloResponse\022\014\n\004name\030\001" +
-      " \001(\t2L\n\017KeyValueService\0229\n\010SayHello\022\025.io" +
-      ".grpc.HelloRequest\032\026.io.grpc.HelloRespon" +
-      "seB%\n\026io.grpc.examples.protoB\tKeyValuesP" +
-      "\001b\006proto3"
+      "\n\rkvstore.proto\022\007io.grpc\"\034\n\014HelloRequest" +
+      "\022\014\n\004data\030\001 \001(\014\"\035\n\rHelloResponse\022\014\n\004name\030" +
+      "\001 \001(\t2L\n\017KeyValueService\0229\n\010SayHello\022\025.i" +
+      "o.grpc.HelloRequest\032\026.io.grpc.HelloRespo" +
+      "nseB%\n\026io.grpc.examples.protoB\tKeyValues" +
+      "P\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -57,7 +57,7 @@ public final class KeyValues {
     internal_static_io_grpc_HelloRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_io_grpc_HelloRequest_descriptor,
-        new java.lang.String[] { "Num", });
+        new java.lang.String[] { "Data", });
     internal_static_io_grpc_HelloResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_io_grpc_HelloResponse_fieldAccessorTable = new

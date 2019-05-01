@@ -1,17 +1,26 @@
 package io.grpc.examples;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.channels.Channels;
+import java.util.Random;
+
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.capnproto.StructList;
+
 import com.google.protobuf.ByteString;
+
 import io.grpc.Channel;
-import io.grpc.Status.Code;
 import io.grpc.StatusRuntimeException;
 import io.grpc.examples.proto.HelloRequest;
 import io.grpc.examples.proto.HelloResponse;
 import io.grpc.examples.proto.KeyValueServiceGrpc;
 import io.grpc.examples.proto.KeyValueServiceGrpc.KeyValueServiceBlockingStub;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import io.grpc.test.Cap.CapData;
 
 /**
  * Performs sample work load, by creating random keys and values, retrieving them, updating them,
@@ -39,8 +48,9 @@ final class KvClient {
   /**
    * Does the client work until {@code done.get()} returns true.  Callers should set done to true,
    * and wait for this method to return.
+ * @throws IOException 
    */
-  void doClientWork(AtomicBoolean done, int payload) {
+  void doClientWork(AtomicBoolean done, int payload) throws IOException {
     Random random = new Random();
     KeyValueServiceBlockingStub stub = KeyValueServiceGrpc.newBlockingStub(channel);
 
@@ -58,12 +68,19 @@ final class KvClient {
 
   /**
    * Creates a random key and value.
+ * @throws IOException 
    */
-  private void doHello(KeyValueServiceBlockingStub stub,int payload) {
+  private void doHello(KeyValueServiceBlockingStub stub,int payload) throws IOException {
     try {
+      ByteArrayOutputStream os = new ByteArrayOutputStream(); 
       HelloRequest.Builder hr = HelloRequest.newBuilder();
+      org.capnproto.MessageBuilder message = new org.capnproto.MessageBuilder();
+      CapData.Builder cap = message.initRoot(CapData.factory);
+      org.capnproto.PrimitiveList.Int.Builder p = cap.initNum(payload);
       for(int i = 0; i < payload; i++)
-        hr.addNum(123);
+    	  p.set(i, 123);
+      org.capnproto.SerializePacked.writeToUnbuffered(Channels.newChannel(os),message);
+      hr.setData(ByteString.copyFrom(os.toByteArray()));
       HelloResponse res = stub.sayHello(hr.build());
       //logger.log(Level.INFO, ("RPC success " + res.getName()));
       rpcCount++;

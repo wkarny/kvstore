@@ -1,11 +1,6 @@
 package io.grpc.examples;
 
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-import io.grpc.Server;
-import io.grpc.ServerBuilder;
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -13,6 +8,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+//import org.capnproto
+//import io.grpc.test.Cap.CapData;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+import io.grpc.Server;
+import io.grpc.ServerBuilder;
+
+
 
 
 /**
@@ -32,6 +36,7 @@ public final class KvRunner {
 	  logger.addHandler(handler);
   }
   public static void main(String []args) throws Exception {
+	 //CapData.Builder cb;
 	for(int i = 1; i < 1000000; i*=10){
 	    KvRunner store = new KvRunner();
 	    store.startServer();
@@ -43,7 +48,7 @@ public final class KvRunner {
 	}
   }
 
-  private void runClient(int payload) throws InterruptedException {
+  private void runClient(int payload) throws InterruptedException, IOException {
     if (channel != null) {
       throw new IllegalStateException("Already started");
     }

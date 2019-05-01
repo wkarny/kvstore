@@ -1,13 +1,9 @@
 package io.grpc.examples;
 
-import com.google.protobuf.ByteString;
-import io.grpc.Status;
 import io.grpc.examples.proto.HelloRequest;
 import io.grpc.examples.proto.HelloResponse;
-import io.grpc.examples.proto.KeyValueServiceGrpc;
 import io.grpc.examples.proto.KeyValueServiceGrpc.KeyValueServiceImplBase;
 import io.grpc.stub.StreamObserver;
-import java.util.concurrent.TimeUnit;
 
 
 /**

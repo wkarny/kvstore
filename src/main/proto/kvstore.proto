@@ -6,7 +6,7 @@ option java_multiple_files = true;
 option java_outer_classname = "KeyValues";
 
 message HelloRequest {
-  repeated int32 num = 1;
+  bytes data = 1;
 }
 
 message HelloResponse {
