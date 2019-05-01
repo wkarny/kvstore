@@ -35,14 +35,14 @@ public final class Cap {
       public final boolean hasNum() {
         return !_pointerFieldIsNull(0);
       }
-      public final org.capnproto.PrimitiveList.Int.Builder getNum() {
-        return _getPointerField(org.capnproto.PrimitiveList.Int.factory, 0, null, 0);
+      public final org.capnproto.TextList.Builder getNum() {
+        return _getPointerField(org.capnproto.TextList.factory, 0, null, 0);
       }
-      public final void setNum(org.capnproto.PrimitiveList.Int.Reader value) {
-        _setPointerField(org.capnproto.PrimitiveList.Int.factory, 0, value);
+      public final void setNum(org.capnproto.TextList.Reader value) {
+        _setPointerField(org.capnproto.TextList.factory, 0, value);
       }
-      public final org.capnproto.PrimitiveList.Int.Builder initNum(int size) {
-        return _initPointerField(org.capnproto.PrimitiveList.Int.factory, 0, size);
+      public final org.capnproto.TextList.Builder initNum(int size) {
+        return _initPointerField(org.capnproto.TextList.factory, 0, size);
       }
     }
 
@@ -54,8 +54,8 @@ public final class Cap {
       public final boolean hasNum() {
         return !_pointerFieldIsNull(0);
       }
-      public final org.capnproto.PrimitiveList.Int.Reader getNum() {
-        return _getPointerField(org.capnproto.PrimitiveList.Int.factory, 0, null, 0);
+      public final org.capnproto.TextList.Reader getNum() {
+        return _getPointerField(org.capnproto.TextList.factory, 0, null, 0);
       }
 
     }
@@ -96,7 +96,7 @@ public static final org.capnproto.SegmentReader b_9b1418ad4014addb =
    "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000" +
    "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000" +
    "\u0000\u0000\u0000\u0000\u0003\u0000\u0001\u0000" +
-   "\u0008\u0000\u0000\u0000\u0000\u0000\u0000\u0000" +
+   "\u000c\u0000\u0000\u0000\u0000\u0000\u0000\u0000" +
    "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000" +
    "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000" +
    "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000" +

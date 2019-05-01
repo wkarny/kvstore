@@ -76,9 +76,9 @@ final class KvClient {
       HelloRequest.Builder hr = HelloRequest.newBuilder();
       org.capnproto.MessageBuilder message = new org.capnproto.MessageBuilder();
       CapData.Builder cap = message.initRoot(CapData.factory);
-      org.capnproto.PrimitiveList.Int.Builder p = cap.initNum(payload);
+      org.capnproto.TextList.Builder p = cap.initNum(payload);
       for(int i = 0; i < payload; i++)
-    	  p.set(i, 123);
+    	  p.set(i, new org.capnproto.Text.Reader("Hello"));;
       org.capnproto.SerializePacked.writeToUnbuffered(Channels.newChannel(os),message);
       hr.setData(ByteString.copyFrom(os.toByteArray()));
       HelloResponse res = stub.sayHello(hr.build());

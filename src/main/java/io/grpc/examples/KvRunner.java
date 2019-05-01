@@ -59,11 +59,11 @@ public final class KvRunner {
     try {
       AtomicBoolean done = new AtomicBoolean();
       KvClient client = new KvClient(channel);
-      logger.info("Starting");
+      //logger.info("Starting");
       scheduler.schedule(() -> done.set(true), DURATION_SECONDS, TimeUnit.SECONDS);
       client.doClientWork(done, payload);
       double qps = (double) client.getRpcCount() / DURATION_SECONDS;
-      logger.log(Level.INFO,"Hello");
+      //logger.log(Level.INFO,"Hello");
       logger.log(Level.INFO, "Did {0} RPCs/s", new Object[]{qps});
     } finally {
       scheduler.shutdownNow();
