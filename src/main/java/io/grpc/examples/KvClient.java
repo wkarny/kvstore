@@ -3,13 +3,13 @@ package io.grpc.examples;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.channels.Channels;
-import java.util.Random;
+//import java.util.Random;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.capnproto.StructList;
+//import org.capnproto.StructList;
 
 import com.google.protobuf.ByteString;
 
@@ -29,16 +29,19 @@ import io.grpc.test.Cap.CapData;
 final class KvClient {
   private static final Logger logger = Logger.getLogger(KvClient.class.getName());
 
-  private final int MEAN_KEY_SIZE = 64;
-  private final int MEAN_VALUE_SIZE = 65536;
+  //private final int MEAN_KEY_SIZE = 64;
+  //private final int MEAN_VALUE_SIZE = 65536;
 
-  private final RandomAccessSet<ByteString> knownKeys = new RandomAccessSet<>();
+  //private final RandomAccessSet<ByteString> knownKeys = new RandomAccessSet<>();
   private final Channel channel;
+  
+  private ByteArrayOutputStream os;
 
   private long rpcCount;
 
   KvClient(Channel channel) {
     this.channel = channel;
+    this.os = new ByteArrayOutputStream();
   }
 
   long getRpcCount() {
@@ -51,7 +54,7 @@ final class KvClient {
  * @throws IOException 
    */
   void doClientWork(AtomicBoolean done, int payload) throws IOException {
-    Random random = new Random();
+    //Random random = new Random();
     KeyValueServiceBlockingStub stub = KeyValueServiceGrpc.newBlockingStub(channel);
 
     while (!done.get()) {
@@ -71,14 +74,14 @@ final class KvClient {
  * @throws IOException 
    */
   private void doHello(KeyValueServiceBlockingStub stub,int payload) throws IOException {
-    try {
-      ByteArrayOutputStream os = new ByteArrayOutputStream(); 
+    try { 
+      os.reset();
       HelloRequest.Builder hr = HelloRequest.newBuilder();
       org.capnproto.MessageBuilder message = new org.capnproto.MessageBuilder();
       CapData.Builder cap = message.initRoot(CapData.factory);
       org.capnproto.TextList.Builder p = cap.initNum(payload);
       for(int i = 0; i < payload; i++)
-    	  p.set(i, new org.capnproto.Text.Reader("Hello"));;
+    	  p.set(i, new org.capnproto.Text.Reader("Hello"));
       org.capnproto.SerializePacked.writeToUnbuffered(Channels.newChannel(os),message);
       hr.setData(ByteString.copyFrom(os.toByteArray()));
       HelloResponse res = stub.sayHello(hr.build());

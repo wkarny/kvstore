@@ -39,27 +39,27 @@ public final class KvRunner {
 	 //CapData.Builder cb;
 	for(int i = 1; i < 1000000; i*=10){
 	    KvRunner store = new KvRunner();
-	    store.startServer();
+	    store.startServer(55661);
 	    try {
-	    	store.runClient(i);
+	    	store.runClient("localhost", 55661, i);
 	    } finally {
 	      store.stopServer();
 	    }
 	}
   }
 
-  private void runClient(int payload) throws InterruptedException, IOException {
+  public void runClient(String ip, int port, int payload) throws InterruptedException, IOException {
     if (channel != null) {
       throw new IllegalStateException("Already started");
     }
-    channel = ManagedChannelBuilder.forTarget("dns:///localhost:" + server.getPort())
+    channel = ManagedChannelBuilder.forTarget("dns:///"+ip+":" + port)
         .usePlaintext(true)
         .build();
     ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     try {
       AtomicBoolean done = new AtomicBoolean();
       KvClient client = new KvClient(channel);
-      //logger.info("Starting");
+      logger.info("Starting : Server on port : " + server.getPort());
       scheduler.schedule(() -> done.set(true), DURATION_SECONDS, TimeUnit.SECONDS);
       client.doClientWork(done, payload);
       double qps = (double) client.getRpcCount() / DURATION_SECONDS;
@@ -71,15 +71,15 @@ public final class KvRunner {
     }
   }
 
-  private void startServer() throws IOException {
+  public void startServer(int port) throws IOException {
     if (server != null) {
       throw new IllegalStateException("Already started");
     }
-    server = ServerBuilder.forPort(0).addService(new KvService()).build();
+    server = ServerBuilder.forPort(port).addService(new KvService()).build();
     server.start();
   }
 
-  private void stopServer() throws InterruptedException {
+  public void stopServer() throws InterruptedException {
     Server s = server;
     if (s == null) {
       throw new IllegalStateException("Already stopped");
