@@ -59,7 +59,7 @@ public final class KvRunner {
     try {
       AtomicBoolean done = new AtomicBoolean();
       KvClient client = new KvClient(channel);
-      logger.info("Starting : Server on port : " + server.getPort());
+      //logger.info("Starting : Server on port : " + server.getPort());
       scheduler.schedule(() -> done.set(true), DURATION_SECONDS, TimeUnit.SECONDS);
       client.doClientWork(done, payload);
       double qps = (double) client.getRpcCount() / DURATION_SECONDS;
